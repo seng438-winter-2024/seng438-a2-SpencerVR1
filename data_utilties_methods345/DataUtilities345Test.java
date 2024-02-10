@@ -11,9 +11,6 @@ import org.jmock.*;
 public class DataUtilities345Test extends DataUtilities {
 	
 	
-	// NOTE: AssertEquals tests that compare doubles are depreciated
-	// instead, a boolean is used to compare the doubles in standard java, then asserted to be true
-	
 	@Test
 	public void testCreateNumberArray() {
 		
