@@ -267,9 +267,16 @@ public class DataUtilities345Test extends DataUtilities {
 	    }
 	 }
 
+	// ------------------------------------------------------------------------------------------------
+
 	
+	// This case tests the functionality of the CreateNumberArray function
+	// by creating a double array with known size and elements
+	// then calling the function to create a number array out of it
+	// and checking if the created number array is not null
+	// and has the same size as the original array
 	@Test
-	public void testCreateNumberArray() {
+	public void testCreateNumberArrayNotNull() {
 		
 		double[] double_arr = {4.0, 4.5, 5.0, 5.5, 6.0};
 		int arr_size = 5;
@@ -278,6 +285,23 @@ public class DataUtilities345Test extends DataUtilities {
 		assertNotNull("Array should not be null", num_arr);
 		
 		assertEquals("Array sizes should be the same", arr_size, num_arr.length);
+		
+	}
+	
+	
+	
+	// This case tests the functionality of the CreateNumberArray function
+	// by creating a double array with known size and elements
+	// then calling the function to create a number array out of it
+	// and checking if the created number array
+	// has the same elements as the double array
+	// that it was created from
+	@Test
+	public void testCreateNumberArrayElements() {
+		
+		double[] double_arr = {4.0, 4.5, 5.0, 5.5, 6.0};
+		int arr_size = 5;
+		Number[] num_arr = DataUtilities.createNumberArray(double_arr);
 		
 		for (int i = 0; i < arr_size; i++) {
 			assertNotNull("Number array element was null at index: " + i, num_arr[i]);
@@ -288,21 +312,39 @@ public class DataUtilities345Test extends DataUtilities {
 	}
 	
 	
-	
-	
-	
-	
+	// This case tests the functionality of the CreateNumberArray2D function
+	// by creating a double matrix with known row / column size and elements
+	// then calling the function to create a number matrix out of it
+	// and checking if the created number matrix
+	// is not null and has the same size as the double matrix
+	// that it was created from
 	@Test
-	public void testCreateNumberArray2D() {
+	public void testCreateNumberArray2DNotNull() {
+			
+		double[][] double_matrix = {{1.0, 1.5, 2.0}, {2.5, 3.0, 3.5}};
+		int mtrx_rows = 2;
+		Number[][] num_matrix = DataUtilities.createNumberArray2D(double_matrix);
+			
+		assertNotNull("Matrix should not be null", num_matrix);
+			
+		assertEquals("Matrix rows should be the same", mtrx_rows, num_matrix.length);
+			
+	}
+	
+	
+	// This case tests the functionality of the CreateNumberArray2D function
+	// by creating a double matrix with known row / column size and elements
+	// then calling the function to create a number matrix out of it
+	// and checking if the created number matrix
+	// has the same columns and elements as the double matrix
+	// that it was created from
+	@Test
+	public void testCreateNumberArray2DElements() {
 		
 		double[][] double_matrix = {{1.0, 1.5, 2.0}, {2.5, 3.0, 3.5}};
 		int mtrx_rows = 2;
 		int mtrx_cols = 3;
 		Number[][] num_matrix = DataUtilities.createNumberArray2D(double_matrix);
-		
-		assertNotNull("Matrix should not be null", num_matrix);
-		
-		assertEquals("Matrix rows should be the same", mtrx_rows, num_matrix.length);
 		
 		for (int i = 0; i < mtrx_rows; i++) {
 			assertNotNull("Number matrix column was null at row: " + i, num_matrix[i]);
@@ -317,14 +359,18 @@ public class DataUtilities345Test extends DataUtilities {
 	}
 	
 	
-	
-	
+	// This case tests the functionality of the getCumulativePercentages function
+	// since the passed in argument is the KeyedValues interface
+	// mocking is used to simulate an object of that interface and the return values for the interface methods
+	// when the function calls them during its calculation
 	@Test
     public void testGetCumulativePercentages() {
 
+		// set-up
         Mockery mockingContext = new Mockery();
         final KeyedValues values = mockingContext.mock(KeyedValues.class);
 
+        // expectation
         mockingContext.checking(new Expectations() {{
         	
         	allowing(values).getItemCount();
@@ -346,8 +392,10 @@ public class DataUtilities345Test extends DataUtilities {
             
         }});
 
+        // test
         KeyedValues cumulativePercentages = DataUtilities.getCumulativePercentages(values);
 
+        // verify
         assertEquals(0.3125, cumulativePercentages.getValue(0).doubleValue(), 0.01);
         assertEquals(0.875, cumulativePercentages.getValue(1).doubleValue(), 0.01);
         assertEquals(1.0, cumulativePercentages.getValue(2).doubleValue(), 0.01);
